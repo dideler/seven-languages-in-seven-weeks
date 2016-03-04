@@ -15,14 +15,16 @@ A lot of its flexibility comes from having its code evaluated at runtime,
 as opposed to at compile time. For example, this allows for a
 [read–eval–print loop][REPL] (REPL), which facilitates exploratory programming,
 debugging, and rapid iteration. The REPL includes the programmer more frequently
-than the classic edit-compile-run-debug cycle. It also allows programmers to
-easily perform "monkey patching", that is, modifying code at runtime.
+than the classic edit-compile-run-debug cycle. Ruby's runtime evaluation also
+allows for "monkey patching" (modifying code at runtime) and dynamic typing
+(types are evaluated at runtime).
 
 Such flexibility and design choices come with a cost, mainly speed and execution
-safety.<sup>2</sup>
-But to most Rubyists that's a small price to pay for the efficiency gains and
-the enjoyability they get from using the language. If you haven't found any joy
-in programming lately, give Ruby a try, it may just make programming fun again.
+safety.<sup>2</sup> It's no wonder that the Ruby community takes testing very
+seriously. But to most Rubyists these inconveniences are a small price to pay
+for the efficiency gains and the enjoyability they get from using the language.
+If you haven't found any joy in programming lately, give Ruby a try,
+it may just make programming fun again.<sup>3</sup>
 
 ---
 
@@ -31,6 +33,9 @@ in programming lately, give Ruby a try, it may just make programming fun again.
 2. Matz has admitted if he could change one feature of the language by going
    back in time, he would replace threads with actors or some other more
    advanced concurrency features.
+3. In addition to the enjoyability of the language, the Ruby community can be
+   a pleasure to work with. They are diverse, welcoming, and supportive while
+   not taking themselves too seriously. You'll fit right in.
 
 [jeff-bezos]: https://www.youtube.com/watch?v=jwG_qR6XmDQ
 [REPL]: https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop
