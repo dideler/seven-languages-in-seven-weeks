@@ -10,7 +10,7 @@ This repository does not attempt to reproduce or store any part of the publicati
 
 **Table of Contents**
 
-1. Ruby
+1. [Ruby](ruby)
 1. Io
 1. Prolog
 1. Scala
