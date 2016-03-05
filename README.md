@@ -5,7 +5,8 @@
 | Version  | P5.0—March 2012                                     |
 | ISBN-13  | 978-1-934356-59-3                                   |
 
-_These are my personal notes from reading the book.   
+_These are my personal notes from reading the book.
+The notes do not necessarily reflect content covered by the book.  
 This repository does not attempt to reproduce or store any part of the publication._
 
 **Table of Contents**
