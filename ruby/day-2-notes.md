@@ -96,11 +96,102 @@ hey
 
 ### Defining Classes
 
-TODO
+Being an OO language, Ruby has classes.
+Ruby has no support for multi-inheritance, only single-inheritance.
+
+Here's an example of empty classes and inheritance.
+
+```ruby
+>> class A; end
+>> class B < A; end
+>> class C < B; end
+>> C.superclass
+B
+>> C.ancestors
+[C, B, A, Object, Kernel, BasicObject]
+```
+
+In Ruby, pretty much every object inherits from [`BasicObject`](http://ruby-doc.org/core/BasicObject.html).
+As its name implies, it's intentionally basic, an almost blank class.
+It provides a small set of basic behaviour that is useful to all classes.
+
+```ruby
+>> BasicObject.instance_methods.sort
+[:!, :!=, :==, :__id__, :__send__, :equal?, :instance_eval, :instance_exec]
+```
+
+The `Object` class, which inherits from `BasicObject`, provides a lot more behaviour to all classes.
+Here is a list of all the extra instance methods defined in `Object`.
+
+```ruby
+>> (Object.instance_methods - BasicObject.instance_methods).sort
+[:!~, :<=>, :===, :=~, :class, :clone, :define_singleton_method, :display, :dup, :enum_for, :eql?, :extend, :freeze, :frozen?, :hash, :inspect, :instance_of?, :instance_variable_defined?, :instance_variable_get, :instance_variable_set, :instance_variables, :is_a?, :itself, :kind_of?, :local_methods, :method, :methods, :nil?, :object_id, :private_methods, :protected_methods, :public_method, :public_methods, :public_send, :remove_instance_variable, :respond_to?, :send, :singleton_class, :singleton_method, :singleton_methods, :taint, :tainted?, :tap, :to_enum, :to_s, :trust, :untaint, :untrust, :untrusted?]
+```
+
+Here comes the confusing part. In Ruby, all classes are objects.
+
+```ruby
+>> Class.superclass
+Module
+>> Class.superclass.superclass
+Object
+>> Class.superclass.superclass.superclass
+BasicObject
+>> Class.superclass.superclass.superclass.superclass
+nil
+```
+
+Constructor goes by the name `initialize`.
+
+```ruby
+def MyClass
+  EXAMPLE_CONSTANT = 90001
+
+  def initialize(foo)
+    @insance_variable = foo
+  end
+
+  def public_instance_method
+    # This method is visible by everyone.
+  end
+
+  def self.public_class_method
+    # This method is only visible on the class level (not the instance level).
+    @@class_variable = 'something'
+  end
+
+  protected
+
+  def protected_instance_method
+    # This method is not visible outside the class but is visible to child classes.
+  end
+
+  private
+
+  def private_instance_method
+    # This method is only visible within this class.
+  end
+
+  def self.private_class_method
+    # This method is only private because of the `private_class_method` method below.
+  end
+  private_class_method :private_class_method
+end
+```
+
+There are other ways to create classes and methods in Ruby, but the above is the most common.
 
 ### Mixins
 
-TODO
+Mixins are Ruby's answer to multi-inheritance.
+
+Multi-inheritance was avoided because experience shows that it's complicated and problematic.
+
+When a lot of classes need some shared behaviour, but they already inherit from something (besides,
+using inheritance for sharing code is an anti-pattern), and you don't want to use composite objects, you can
+put the behaviour in a `module`. A module is similar to a `class` in Ruby, except you cannot instantiate
+objects from it. It's a collection of functions and constants. When you `include` a module as part of a class,
+those functions and constants become part of the class.
 
 ### Modules, Enumerables, and Sets
 
