@@ -187,12 +187,63 @@ Mixins are Ruby's answer to multi-inheritance.
 
 Multi-inheritance was avoided because experience shows that it's complicated and problematic.
 
-When a lot of classes need some shared behaviour, but they already inherit from something (besides,
-using inheritance for sharing code is an anti-pattern), and you don't want to use composite objects, you can
-put the behaviour in a `module`. A module is similar to a `class` in Ruby, except you cannot instantiate
-objects from it. It's a collection of functions and constants. When you `include` a module as part of a class,
-those functions and constants become part of the class.
+When different classes need some shared behaviour but they already inherit from
+something (besides, using inheritance for sharing code is an anti-pattern),
+and you don't want to use composite objects, then the shared behaviour can
+live inside a `module`.
 
-### Modules, Enumerables, and Sets
+A module is similar to a `class` in Ruby, except you cannot instantiate it.
+It's a collection of functions and constants. When you `include` a module as
+part of a class, those functions and constants become part of the class.
 
-TODO
+```ruby
+require 'yaml'
+
+module Serializable
+  def to_file
+    File.open(filename, 'w') do |f|
+      f.write(serialize)
+    end
+  end
+
+  private
+
+  def filename
+    "object_#{self.object_id}.txt"
+  end
+
+  def serialize
+    YAML.dump(self)
+  end
+end
+
+class Foo
+  def initialize(a, b)
+    @a, @b = a, b
+  end
+end
+
+f = Foo.new(1, 2)
+f.to_file
+```
+
+Ruby also comes with its own predefined modules. Some of the most important ones are `enumerable` and
+`comparable`. These two modules provide the mixin class with a bunch of useful behaviour, given that the class
+defined `each` for iterating through a collection, and `<=>` for comparing two objects.
+
+For example, they provide behaviour such as
+
+```ruby
+>> [1, 3, 2].sort
+[1, 2, 3]
+>> [1, 5, 8].any? { |i| i > 6 }
+true
+>> [1, 2, 3, 4].select { |i| i % 2 == 0 }
+[2, 4]
+>> [1, 2, 3].max
+5
+>> [1, 2, 3].inject(:+)
+6
+>> [3, 2, 1].reverse
+[1, 2, 3]
+```
