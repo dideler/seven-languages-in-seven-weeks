@@ -1,3 +1,5 @@
+<img width="520" alt="Book cover" src="https://cloud.githubusercontent.com/assets/497458/13724579/fcff670e-e881-11e5-85b3-850f714c44da.png">
+
 | Title    | Seven Languages in Seven Weeks                      |
 | -------: | :-------------------------------------------------- |
 | Subtitle | A Pragmatic Guide to Learning Programming Languages |
