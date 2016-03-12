@@ -3,8 +3,10 @@
 An interpreted, dynamically typed, object-oriented (OO) language known for its
 ease of use and readability.
 
+Ruby is popular when it comes to scripting or web development<sup>1</sup>.
+
 Like the author, Ruby is my favourite programming language and the one I use
-professionally.<sup>1</sup>
+professionally.<sup>2</sup>
 
 Matz, Ruby's creator, designed the language for programmer productivity
 and fun. He believes that systems design needs to emphasize human, rather than
@@ -20,22 +22,24 @@ allows for "monkey patching" (modifying code at runtime) and dynamic typing
 (types are evaluated at runtime).
 
 Such flexibility and design choices come with a cost, mainly speed and execution
-safety.<sup>2</sup> It's no wonder that the Ruby community takes testing very
+safety.<sup>3</sup> It's no wonder that the Ruby community takes testing very
 seriously. But to most Rubyists these inconveniences are a small price to pay
 for the efficiency gains and the enjoyability they get from using the language.
 If you haven't found any joy in programming lately, give Ruby a try,
-it may just make programming fun again.<sup>3</sup>
+it may just make programming fun again.<sup>4</sup>
 
 ---
 
-1. At the time of writing. I'm sure it will change many times throughout my
+1. Ruby became popular as a web development language thanks to [Ruby on Rails][rails], a web framework.
+2. At the time of writing. I'm sure it will change many times throughout my
    life.
-2. Matz has admitted if he could change one feature of the language by going
+3. Matz has admitted if he could change one feature of the language by going
    back in time, he would replace threads with actors or some other more
    advanced concurrency features.
-3. In addition to the enjoyability of the language, the Ruby community can be
+4. In addition to the enjoyability of the language, the Ruby community can be
    a pleasure to work with. They are diverse, welcoming, and supportive while
    not taking themselves too seriously. You'll fit right in.
 
+[rails]: http://rubyonrails.org/
 [jeff-bezos]: https://www.youtube.com/watch?v=jwG_qR6XmDQ
 [REPL]: https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop
