@@ -66,6 +66,154 @@ Io> Object type
 
 ---
 
+### Inheritance
+
+```io
+Io> Vehicle := Object clone
+==>  Vehicle_0x7fb7d8e1ece0:
+  type             = "Vehicle"
+
+Io> Vehicle description := "a vehicle"
+==> a vehicle
+Io> Car := Vehicle clone
+==>  Car_0x7fb7d8e35e80:
+  type             = "Car"
+
+Io> Car description
+==> a vehicle
+Io> Car slotNames
+==> list(type)
+```
+
+The `Car` object itself does not have a `description` slot but is able to
+access the `description` slot on `Vehicle`. Io forwards the `description`
+message up the prototype chain until it finds a matching slot.
+
+Now let's create a specific car.
+
+```io
+Io> tesla := Car clone
+==>  Car_0x7fb7d8d56760:
+
+Io> tesla slotNames
+==> list()
+Io> tesla type
+==> Car
+```
+
+Whoa! Our `tesla` has no slotNames and its type is `Car` (its prototype).  
+By convention, types in Io begin with an uppercase letter.
+
+Objects are containers for slots. When an object receives a message,
+it searches for a matching slot. If that slot doesn't exist, it will
+search its prototype. If it hasn't found the slot in the parent, you
+get an error that the object doesn't respond to the message.
+
+```
++-----------------+
+|Object           |
+|                 |
+|                 |
++--------+--------+
+         ^
+         |
+         |
++--------+--------+
+|Vehicle          |
+|                 |
+|    description  |
++--------+--------+
+         ^
+         |
+         |
++--------+--------+
+|Car              |
+|                 |
+|                 |
++--------+--------+
+         ^
+         |
+         |
++--------+--------+
+|tesla            |
+|                 |
++-----------------+
+```
+
+Both `tesla` and `Car` are objects, but only `Car` is a type (meaning it gets the `type` slot)
+since it starts with an uppercase letter. The wo objects are pretty much identical otherwise.
+
+### Methods
+
+Methods in Io are objects. Methods have `Block` as its (proto)type.
+
+```io
+Io> method type
+==> Block
+```
+
+We can create a method with optional parentheses where we specify its behaviour.
+
+```io
+Io> method("hello" println)
+==> method(
+    "hello" println
+)
+```
+
+If we treat a method as a message, we can assign it to a slot, and invoke it by calling the slot.
+
+```io
+Io> tesla charge := method("charging..." println)
+==> method(
+    "charging..." println
+)
+Io> tesla charge
+charging...
+```
+
+Those are the basic principles of Io. The rest is learning its libraries.
+
+We can view the contents of a slot:
+
+```io
+Io> tesla getSlot("charge")
+==> method(
+    "charging..." println
+)
+```
+
+We can get an object's prototype (and conveniently the slots of that prototype):
+
+```io
+Io> Car proto
+==>  Vehicle_0x7fb7d8e1ece0:
+  description      = "a vehicle"
+  type             = "Vehicle"
+```
+
+We can view all named objects that exist by calling the `Lobby` object:
+
+```io
+Io> Lobby
+==>  Object_0x7fb7d8f17b80:
+  Car              = Car_0x7fb7d8e35e80
+  Lobby            = Object_0x7fb7d8f17b80
+  Protos           = Object_0x7fb7d8f17aa0
+  Vehicle          = Vehicle_0x7fb7d8e1ece0
+  _                = Object_0x7fb7d8f17b80
+  exit             = method(...)
+  forward          = method(...)
+  set_             = method(...)
+  tesla            = Car_0x7fb7d8d56760
+```
+
+### Collections
+
+TODO
+
+---
+
 1. Even assignment is a message in Io.
 
 [hash map]: https://en.wikipedia.org/wiki/Hash_table
