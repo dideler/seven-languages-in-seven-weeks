@@ -210,10 +210,144 @@ Io> Lobby
 
 ### Collections
 
-TODO
+#### List
+
+`List` is the collection prototype for ordered objects.
+
+```io
+Io> List clone
+==> list()
+Io> List clone append(1, 2, 3)
+==> list(1, 2, 3)
+```
+
+The shorthand syntax for creating a list is `list()`.
+
+```io
+Io> todo := list("wake up", "take over the world")
+==> list(wake up, take over the world)
+Io> todo append("sleep")
+==> list(wake up, take over the world, sleep)
+```
+
+`List` has some convenience methods.
+
+```io
+Io> list(1, 2, 3) average
+==> 2
+Io> list(1, 2, 3) sum
+==> 6
+Io> list() isEmpty
+==> true
+```
+
+In total there are 82 list methods<sup>2</sup>
+```io
+Io> List slotNames size
+==> 82
+```
+
+You can see all the methods by viewing the slots on `List`.
+```io
+Io> List slotNames sort
+==> list(ListCursor, append, appendIfAbsent, appendSeq, asEncodedList, asJson, asMap, asMessage, asSimpleString, asString, at, atInsert, atPut, average, capacity, contains, containsAll, containsAny, containsIdenticalTo, copy, cursor, detect, difference, empty, exSlice, first, flatten, foreach, fromEncodedList, groupBy, indexOf, insertAfter, insertAt, insertBefore, intersect, isEmpty, isNotEmpty, itemCopy, join, justSerialized, last, map, mapFromKey, mapInPlace, max, min, pop, preallocateToSize, prepend, push, reduce, remove, removeAll, removeAt, removeFirst, removeLast, removeSeq, rest, reverse, reverseForeach, reverseInPlace, reverseReduce, second, select, selectInPlace, setSize, size, slice, sliceInPlace, sort, sortBy, sortByKey, sortInPlace, sortInPlaceBy, sortKey, sum, swapIndices, third, union, unique, uniqueCount, with)
+```
+
+#### Map
+
+`Map` is the collection prototypes for key-value pairs (e.g. Ruby hash).
+
+It doesn't have a shorthand syntax like `list` does.
+
+```io
+Io> saba := Map clone
+==>  Map_0x7fb7d8c3baf0:
+
+Io> saba atPut("description", "island")
+==>  Map_0x7fb7d8c3baf0:
+
+Io> saba at("description")
+==> island
+Io> saba atPut("languages", "dutch, english")
+==>  Map_0x7fb7d8c3baf0:
+
+Io> saba asObject
+==>  Object_0x7fb7d8c33c40:
+  description      = "island"
+  languages        = "dutch, english"
+
+Io> saba asList
+==> list(list(languages, dutch, english), list(description, island))
+Io> saba keys
+==> list(languages, description)
+Io> saba size
+==> 2
+```
+
+Maps are a lot like Io objects with slots as keys.
+The difference is that maps have extra behaviour on them.
+
+### Singletons
+
+Every `Object` clone has its own object ID (which looks like a memory location).
+
+```io
+Io> Object clone
+==>  Object_0x7fb7d8c65430:
+
+Io> Object clone
+==>  Object_0x7fb7d8c83b00:
+```
+
+Compare two `Object` clones, they are not equal.
+
+```io
+Io> one := Object clone
+==>  Object_0x7fb7d8e499e0:
+
+Io> two := Object clone
+==>  Object_0x7fb7d8c50df0:
+
+Io> one == two
+==> false
+```
+
+But if we create a singleton object by overriding the `clone` method.
+```io
+Io> SomeSingleton := Object clone
+==>  SomeSingleton_0x7fb7d8eb4060:
+  type             = "SomeSingleton"
+
+Io> SomeSingleton clone := SomeSingleton
+==>  SomeSingleton_0x7fb7d8eb4060:
+  clone            = SomeSingleton_0x7fb7d8eb4060
+  type             = "SomeSingleton"
+
+Io> foo := SomeSingleton clone
+==>  SomeSingleton_0x7fb7d8eb4060:
+  clone            = SomeSingleton_0x7fb7d8eb4060
+  type             = "SomeSingleton"
+
+Io> bar := SomeSingleton clone
+==>  SomeSingleton_0x7fb7d8eb4060:
+  clone            = SomeSingleton_0x7fb7d8eb4060
+  type             = "SomeSingleton"
+
+Io> foo == bar
+==> true
+```
+
+Then only a single clone can exist for that object.
+Trying to clone it results in the same object being returned!
+
+Implementing the singleton pattern has never been easier!
+
+Just be careful not to override the `clone` method on `Object`.
+Cloning will break for all objects and the program will immediately hang until you kill it.
 
 ---
 
 1. Even assignment is a message in Io.
+2. In version 20140919 of the Io language.
 
 [hash map]: https://en.wikipedia.org/wiki/Hash_table
