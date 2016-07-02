@@ -141,7 +141,7 @@ get an error that the object doesn't respond to the message.
 ```
 
 Both `tesla` and `Car` are objects, but only `Car` is a type (meaning it gets the `type` slot)
-since it starts with an uppercase letter. The wo objects are pretty much identical otherwise.
+since it starts with an uppercase letter. The two objects are pretty much identical otherwise.
 
 ### Methods
 
